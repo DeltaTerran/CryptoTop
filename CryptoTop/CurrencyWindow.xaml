@@ -1,0 +1,48 @@
+﻿<Window x:Class="CryptoTop.CurrencyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CryptoTop"
+        mc:Ignorable="d"
+        Title="CurrencyWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Top">
+                <DataGrid Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Rank" Binding="{Binding Rank}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Text="Price: " VerticalAlignment="Center" />
+                                        <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Price}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Text="Volume: " VerticalAlignment="Center" />
+                                        <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Volume}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Text="PriceChange: " VerticalAlignment="Center" />
+                                        <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding ChangePercent}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Text="Market: " VerticalAlignment="Center" />
+                                        <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Link}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Exchange">
+                <DataGrid Name="_topExchange"></DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
