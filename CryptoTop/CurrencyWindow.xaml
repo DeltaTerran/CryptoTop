@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CurrencyWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True">
+        <DataGrid Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Rank" Binding="{Binding rank}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Id" Binding="{Binding id}"></DataGridTextColumn>

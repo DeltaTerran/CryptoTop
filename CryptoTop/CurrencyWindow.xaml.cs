@@ -15,17 +15,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace CryptoTop
 {
-   
+
     public partial class CurrencyWindow : Window
     {
         List<Currencies> _currencyList = new List<Currencies>();
-        #region потом удалить
-        static string _filePath = "C:\\Users\\spaka\\source\\repos\\CryptoTop\\CryptoTop\\Json\\Assets.JSON";
-        static string _jsonFromFile = File.ReadAllText(_filePath);
-        #endregion
+
         public CurrencyWindow()
         {
             InitializeComponent();
@@ -61,113 +59,179 @@ namespace CryptoTop
             #endregion
 
         }
+
+        private void _topCurrencies_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "Id"
+           //(e.Column.SortDirection == ListSortDirection.Ascending ||
+           //!e.Column.SortDirection.HasValue)
+           )
+            {
+                e.Handled = true;
+                if (e.Column.SortDirection == ListSortDirection.Ascending ||
+                !e.Column.SortDirection.HasValue)
+                {
+                    MessageBox.Show("Good");
+                    _topCurrencies.ItemsSource = _currencyList
+                        .OrderBy(n => n.id)
+                        .Take(10);
+                    e.Column.SortDirection = ListSortDirection.Descending;
+                }
+                else
+                {
+                    MessageBox.Show("Bad");
+                    _topCurrencies.ItemsSource = _currencyList
+                        .OrderByDescending(n => n.id)
+                        .Take(10);
+                    e.Column.SortDirection = ListSortDirection.Ascending;
+                }
+                _topCurrencies.Items.Refresh();
+            }
+
+            if (e.Column.Header.ToString() == "Rank"
+            //(e.Column.SortDirection == ListSortDirection.Ascending ||
+            //!e.Column.SortDirection.HasValue)
+            )
+            {
+                e.Handled = true;
+                if (e.Column.SortDirection == ListSortDirection.Ascending ||
+                !e.Column.SortDirection.HasValue)
+                {
+                    MessageBox.Show("Good");
+                    _topCurrencies.ItemsSource = _currencyList
+                        .OrderBy(n => ExtractNumber(n.rank))
+                        .Take(10);
+                    e.Column.SortDirection = ListSortDirection.Descending;
+                }
+                else
+                {
+                    MessageBox.Show("Bad");
+                    _topCurrencies.ItemsSource = _currencyList
+                        .OrderByDescending(n => ExtractNumber(n.rank))
+                        .Take(10);
+                    e.Column.SortDirection = ListSortDirection.Ascending;
+                }
+                _topCurrencies.Items.Refresh();
+            }
+            
+        }
+        static int ExtractNumber(string str)
+        {
+            string numberPart = new string(str.Where(char.IsDigit).ToArray());
+            if (int.TryParse(numberPart, out int number))
+            {
+                return number;
+            }
+            return 0;
+        }
+
+        #region тестовые классы
+        //public class Currencies
+        //{
+        //    public Currencies(string id, int rank, string symbol, double supply, double maxSupply, double marketCup, double volume, double price, double changePercent, double vWAP, string link)
+        //    {
+        //        Id = id;
+        //        Rank = rank;
+        //        Symbol = symbol;
+        //        Supply = supply;
+        //        MaxSupply = maxSupply;
+        //        MarketCap = marketCup;
+        //        Volume = volume;
+        //        Price = price;
+        //        ChangePercent = changePercent;
+        //        VWAP = vWAP;
+        //        Link = link;
+        //    }
+        //    /// <summary>
+        //    /// id
+        //    /// </summary>
+        //    [JsonPropertyName("id")]
+        //    public string Id { get; set; } = "";
+        //    /// <summary>
+        //    /// rank
+        //    /// </summary>
+        //    [JsonPropertyName("rank")]
+        //    public int Rank { get; set; }
+        //    /// <summary>
+        //    /// symbol
+        //    /// </summary>
+        //    [JsonPropertyName("symbol")]
+        //    public string Symbol { get; set; } = "";
+        //    /// <summary>
+        //    /// supply
+        //    /// </summary>
+        //    [JsonPropertyName("supply")]
+        //    public double Supply { get; set; }
+        //    /// <summary>
+        //    /// maxsupply
+        //    /// </summary>
+        //    [JsonPropertyName("maxsupply")]
+        //    public double MaxSupply { get; set; }
+        //    /// <summary>
+        //    /// marketCapUSD
+        //    /// </summary>
+        //    [JsonPropertyName("marketCapUSD")]
+        //    public double MarketCap { get; set; }
+        //    /// <summary>
+        //    /// volumeUsd24Hr
+        //    /// </summary>
+        //    [JsonPropertyName("volumeUsd24Hr")]
+        //    public double Volume { get; set; }
+        //    /// <summary>
+        //    /// priceUsd
+        //    /// </summary>
+        //    [JsonPropertyName("priceUsd")]
+        //    public double Price { get; set; }
+        //    /// <summary>
+        //    /// changePercent24Hr
+        //    /// </summary>
+        //    [JsonPropertyName("changePercent24Hr")]
+        //    public double ChangePercent { get; set; }
+        //    /// <summary>
+        //    /// vwap24Hr
+        //    /// </summary>
+        //    [JsonPropertyName("vwap24Hr")]
+        //    public double VWAP { get; set; }
+        //    /// <summary>
+        //    /// explorer
+        //    /// </summary>
+        //    [JsonPropertyName("explorer")]
+        //    public string Link { get; set; }
+
+
+
+        //}
+        //public class CurrencyResponse
+        //{
+        //    public List<Currencies> Data { get; set; }  // Свойство "data" из JSON
+        //}
+
+        //private void _topCurrencies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    DebugLabel.Content = _topCurrencies.SelectedValue;
+        //}
+
+        //    public class Exchange
+        //    {
+        //        public string Name { get; set; }
+        //        public double Price { get; set; }
+        //        public int Volume { get; set; }
+
+        //        public double Change { get; set; }
+
+        //        public string Markets { get; set; }
+
+
+
+        //        public Exchange(string name, double price, int volume, double change, string markets)
+        //        {
+        //            Name = name;
+        //            Price = price;
+        //            Volume = volume;
+        //            Change = change;
+        //            Markets = markets;
+        //        }
+        //    }
+        #endregion
     }
-    #region тестовые классы
-    //public class Currencies
-    //{
-    //    public Currencies(string id, int rank, string symbol, double supply, double maxSupply, double marketCup, double volume, double price, double changePercent, double vWAP, string link)
-    //    {
-    //        Id = id;
-    //        Rank = rank;
-    //        Symbol = symbol;
-    //        Supply = supply;
-    //        MaxSupply = maxSupply;
-    //        MarketCap = marketCup;
-    //        Volume = volume;
-    //        Price = price;
-    //        ChangePercent = changePercent;
-    //        VWAP = vWAP;
-    //        Link = link;
-    //    }
-    //    /// <summary>
-    //    /// id
-    //    /// </summary>
-    //    [JsonPropertyName("id")]
-    //    public string Id { get; set; } = "";
-    //    /// <summary>
-    //    /// rank
-    //    /// </summary>
-    //    [JsonPropertyName("rank")]
-    //    public int Rank { get; set; }
-    //    /// <summary>
-    //    /// symbol
-    //    /// </summary>
-    //    [JsonPropertyName("symbol")]
-    //    public string Symbol { get; set; } = "";
-    //    /// <summary>
-    //    /// supply
-    //    /// </summary>
-    //    [JsonPropertyName("supply")]
-    //    public double Supply { get; set; }
-    //    /// <summary>
-    //    /// maxsupply
-    //    /// </summary>
-    //    [JsonPropertyName("maxsupply")]
-    //    public double MaxSupply { get; set; }
-    //    /// <summary>
-    //    /// marketCapUSD
-    //    /// </summary>
-    //    [JsonPropertyName("marketCapUSD")]
-    //    public double MarketCap { get; set; }
-    //    /// <summary>
-    //    /// volumeUsd24Hr
-    //    /// </summary>
-    //    [JsonPropertyName("volumeUsd24Hr")]
-    //    public double Volume { get; set; }
-    //    /// <summary>
-    //    /// priceUsd
-    //    /// </summary>
-    //    [JsonPropertyName("priceUsd")]
-    //    public double Price { get; set; }
-    //    /// <summary>
-    //    /// changePercent24Hr
-    //    /// </summary>
-    //    [JsonPropertyName("changePercent24Hr")]
-    //    public double ChangePercent { get; set; }
-    //    /// <summary>
-    //    /// vwap24Hr
-    //    /// </summary>
-    //    [JsonPropertyName("vwap24Hr")]
-    //    public double VWAP { get; set; }
-    //    /// <summary>
-    //    /// explorer
-    //    /// </summary>
-    //    [JsonPropertyName("explorer")]
-    //    public string Link { get; set; }
-
-
-
-    //}
-    //public class CurrencyResponse
-    //{
-    //    public List<Currencies> Data { get; set; }  // Свойство "data" из JSON
-    //}
-
-    //private void _topCurrencies_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    //{
-    //    DebugLabel.Content = _topCurrencies.SelectedValue;
-    //}
-
-    //    public class Exchange
-    //    {
-    //        public string Name { get; set; }
-    //        public double Price { get; set; }
-    //        public int Volume { get; set; }
-
-    //        public double Change { get; set; }
-
-    //        public string Markets { get; set; }
-
-
-
-    //        public Exchange(string name, double price, int volume, double change, string markets)
-    //        {
-    //            Name = name;
-    //            Price = price;
-    //            Volume = volume;
-    //            Change = change;
-    //            Markets = markets;
-    //        }
-    //    }
-    #endregion
 }
