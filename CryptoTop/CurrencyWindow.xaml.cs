@@ -27,7 +27,29 @@ namespace CryptoTop
         public CurrencyWindow()
         {
             InitializeComponent();
-            _currencyList = JsonHandler.CreateList();
+            try
+            {
+                if (File.Exists(JsonHandler.FilePath()))
+                {
+                    try
+                    {
+                        _currencyList = JsonHandler.CreateList();
+                        _topCurrencies.ItemsSource = _currencyList.Take(10);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Нет данных");
+            }
+            
+            
+            
             #region Тестовые код
 
 
@@ -39,7 +61,7 @@ namespace CryptoTop
             //_currencyList.Add(tether);
             //_currencyList = JsonHandler.CreateList();
             #endregion
-            _topCurrencies.ItemsSource = _currencyList.Take(10);
+            
         }
 
         private void _topCurrencies_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -124,6 +146,8 @@ namespace CryptoTop
             }
             return 0;
         }
+
+
 
         #region тестовые классы
         //public class Currencies
@@ -233,5 +257,18 @@ namespace CryptoTop
         //        }
         //    }
         #endregion
+
+        private void DataGetButton_Click(object sender, RoutedEventArgs e)
+        {
+            Requester.CreateJson();
+
+            _currencyList = JsonHandler.CreateList();
+            _topCurrencies.ItemsSource = _currencyList.Take(10);
+        }
+
+        private void ChangeAPIButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -10,8 +10,12 @@ namespace CryptoTop.Classes
 {
     public static class JsonHandler
     {
-        static string _filePath = "C:\\Users\\spaka\\source\\repos\\CryptoTop\\CryptoTop\\Json\\Assets.JSON";
-        static string _jsonFromFile = File.ReadAllText(_filePath);
+        private static string _filePath = "C:\\Users\\spaka\\source\\repos\\CryptoTop\\CryptoTop\\Json\\Assets.JSON";
+        public static string FilePath()
+        {
+            return _filePath;
+        }
+        private static string _jsonFromFile = File.ReadAllText(_filePath);
 
         public static List<Currencies> CreateList()
         {
