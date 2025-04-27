@@ -1,0 +1,23 @@
+﻿<Page x:Class="CryptoTop.DetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CryptoTop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DetailPage">
+
+    <Grid>
+        <Canvas>
+            <Label x:Name="Price" FontSize="22">Price</Label>
+            <Label x:Name="Volume" Canvas.Top="32" FontSize="22">Volume</Label>
+            <Label x:Name="PriceChange" Canvas.Top="64" FontSize="22">PriceChange</Label>
+            <Label x:Name="Market" Canvas.Top="96" FontSize="22">Market</Label>
+            <Label x:Name="PriceInfo" Canvas.Left="150" FontSize="22">Hi</Label>
+            <Label x:Name="VolumeInfo" Canvas.Top="32" Canvas.Left="150" FontSize="22">Hi</Label>
+            <Label x:Name="PriceChangeInfo" Canvas.Top="64" Canvas.Left="150" FontSize="22">Hi</Label>
+            <Label x:Name="MarketInfo" Canvas.Top="96" Canvas.Left="150" Canvas.Right="1" FontSize="22">Hi</Label>
+        </Canvas>
+    </Grid>
+</Page>

@@ -13,11 +13,6 @@
         </Grid.RowDefinitions>
         <Button Name="DataGetButton" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="20" Margin="10" Content="Get Data" Click="DataGetButton_Click" ></Button>
         <Button Name="ChangeAPIButton" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Height="20" Margin="10" Content="Change API-key" Click="ChangeAPIButton_Click"></Button>
-        <DataGrid Grid.Row="1" Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Rank" Binding="{Binding rank}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Id" Binding="{Binding id}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Frame x:Name="_mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
