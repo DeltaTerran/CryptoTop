@@ -27,6 +27,7 @@ namespace CryptoTop
         public CurrencyWindow()
         {
             InitializeComponent();
+            JsonHandler.EnsureFileExists();
             try
             {
                 if (File.Exists(JsonHandler.FilePath()))
@@ -260,8 +261,10 @@ namespace CryptoTop
 
         private void DataGetButton_Click(object sender, RoutedEventArgs e)
         {
-            Requester.CreateJson();
 
+
+            Requester.CreateJson();
+            
             _currencyList = JsonHandler.CreateList();
             _topCurrencies.ItemsSource = _currencyList.Take(10);
         }

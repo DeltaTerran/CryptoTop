@@ -20,27 +20,29 @@ namespace CryptoTop.Classes
         
         public static async void CreateJson()
         {
-            
+                await RequestJSON();
+        }
+
+        private static async Task RequestJSON()
+        {
             try
             {
                 HttpResponseMessage response = await _client.GetAsync($"assets?apiKey={_apiKey}");
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                
+
                 using (FileStream json = new FileStream(JsonHandler.FilePath(), FileMode.Create))
                 {
                     byte[] buffer = Encoding.Default.GetBytes(responseBody);
                     await json.WriteAsync(buffer, 0, buffer.Length);
                     MessageBox.Show("Файл был записан");
-                } 
+                }
             }
             catch (Exception e)
             {
 
                 MessageBox.Show($"Ошибка при выполнении запроса: {e.Message}");
             }
-            
         }
-
     }
 }

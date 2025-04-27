@@ -10,20 +10,28 @@ namespace CryptoTop.Classes
 {
     public static class JsonHandler
     {
-        private static string _filePath = "C:\\Users\\spaka\\source\\repos\\CryptoTop\\CryptoTop\\Json\\Assets.JSON";
+        private static string _filePath = @"Json\Assets.JSON";
         public static string FilePath()
         {
             return _filePath;
         }
-        private static string _jsonFromFile = File.ReadAllText(_filePath);
 
         public static List<Currencies> CreateList()
         {
-            CurrencyResponse response = JsonSerializer.Deserialize<CurrencyResponse>(_jsonFromFile);
+            CurrencyResponse response = JsonSerializer.Deserialize<CurrencyResponse>(File.ReadAllText(_filePath));
             List<Currencies> temp = response.data;
             return temp;
         }
+        public static void EnsureFileExists()
+        {
+            if (!File.Exists(_filePath))
+            {
+                Directory.CreateDirectory("Json");
+                File.WriteAllText(_filePath, "{\"data\": []}");
+            }
+        }
     }
+    
     public class CurrencyResponse
     {
         public List<Currencies> data { get; set; }
