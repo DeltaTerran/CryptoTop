@@ -35,7 +35,6 @@ namespace CryptoTop.Classes
                 {
                     byte[] buffer = Encoding.Default.GetBytes(responseBody);
                     await json.WriteAsync(buffer, 0, buffer.Length);
-                    MessageBox.Show("Файл был записан");
                 }
             }
             catch (Exception e)

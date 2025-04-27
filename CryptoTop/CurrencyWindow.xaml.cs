@@ -264,7 +264,7 @@ namespace CryptoTop
 
 
             Requester.CreateJson();
-            
+            MessageBox.Show("Файл был записан");
             _currencyList = JsonHandler.CreateList();
             _topCurrencies.ItemsSource = _currencyList.Take(10);
         }
