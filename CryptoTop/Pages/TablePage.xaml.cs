@@ -37,105 +37,68 @@ namespace CryptoTop
         public TablePage()
         {
             InitializeComponent();
-            try
+        }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(JsonHandler.FilePath()))
             {
-                if (File.Exists(JsonHandler.FilePath()))
+                try
                 {
-                    try
-                    {
-                        _currencyList = JsonHandler.CreateList();
-                        _topCurrencies.ItemsSource = _currencyList.Take(10);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    _currencyList = JsonHandler.CreateList();
+                    _topCurrencies.ItemsSource = _currencyList.Take(10);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception)
-            {
-
-                MessageBox.Show("Нет данных");
-            }
-
         }
         private void _topCurrencies_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var currencies = _topCurrencies.ItemsSource as IEnumerable<Currencies>;
+            var curr = currencies.ElementAt(_topCurrencies.SelectedIndex);
+            var detailPage = new DetailPage();
             var mainWindow = Application.Current.MainWindow as CurrencyWindow;
+            detailPage.DisplayedCurrency= curr;
             if (mainWindow != null)
             {
-                mainWindow.MainFrameInstance.Navigate(new DetailPage());
+                mainWindow.MainFrameInstance.Navigate(detailPage);
             }
-
-            #region Тестовый код
-            //var currencies = _topCurrencies.ItemsSource as IEnumerable<Currencies>;
-            //var curr = currencies.ElementAt(_topCurrencies.SelectedIndex);
-            //PriceInfo.Content = curr.Price;
-            //VolumeInfo.Content = curr.Volume;
-            //PriceChangeInfo.Content = curr.ChangePercent;
-            //MarketInfo.Content = curr.Link;
-            //DebugLabelMid.Content = curr.Id.ToString();
-            //DebugLabelLeftMid.Content = curr.Price;
-            //DebugLabelTopLeft.Content = curr.Volume;
-            //DebugLabelTopMid.Content = curr.ChangePercent;
-            //DebugLabelBottomLeft.Content = curr.Link;
-            #endregion
-
         }
 
         private void _topCurrencies_Sorting(object sender, DataGridSortingEventArgs e)
         {
-            if (e.Column.Header.ToString() == "Id"
-           //(e.Column.SortDirection == ListSortDirection.Ascending ||
-           //!e.Column.SortDirection.HasValue)
-           )
-            {
-                e.Handled = true;
-                if (e.Column.SortDirection == ListSortDirection.Ascending ||
-                !e.Column.SortDirection.HasValue)
-                {
-                    MessageBox.Show("Good");
-                    _topCurrencies.ItemsSource = _currencyList
-                        .OrderBy(n => n.id)
-                        .Take(10);
-                    e.Column.SortDirection = ListSortDirection.Descending;
-                }
-                else
-                {
-                    MessageBox.Show("Bad");
-                    _topCurrencies.ItemsSource = _currencyList
-                        .OrderByDescending(n => n.id)
-                        .Take(10);
-                    e.Column.SortDirection = ListSortDirection.Ascending;
-                }
-                _topCurrencies.Items.Refresh();
-            }
+            e.Handled = true;
 
-            if (e.Column.Header.ToString() == "Rank"
-            //(e.Column.SortDirection == ListSortDirection.Ascending ||
-            //!e.Column.SortDirection.HasValue)
-            )
+            var isAscending = e.Column.SortDirection != ListSortDirection.Descending;
+            var header = e.Column.Header.ToString();
+
+            IOrderedEnumerable<Currencies> sortedItems = null;
+
+            switch (header)
             {
-                e.Handled = true;
-                if (e.Column.SortDirection == ListSortDirection.Ascending ||
-                !e.Column.SortDirection.HasValue)
-                {
-                    MessageBox.Show("Good");
-                    _topCurrencies.ItemsSource = _currencyList
-                        .OrderBy(n => ExtractNumber(n.rank))
-                        .Take(10);
-                    e.Column.SortDirection = ListSortDirection.Descending;
-                }
-                else
-                {
-                    MessageBox.Show("Bad");
-                    _topCurrencies.ItemsSource = _currencyList
-                        .OrderByDescending(n => ExtractNumber(n.rank))
-                        .Take(10);
-                    e.Column.SortDirection = ListSortDirection.Ascending;
-                }
+                case "Id":
+                    sortedItems = isAscending
+                        ? _currencyList.OrderBy(n => n.id)
+                        : _currencyList.OrderByDescending(n => n.id);
+                    break;
+
+                case "Rank":
+                    sortedItems = isAscending
+                        ? _currencyList.OrderBy(n => ExtractNumber(n.rank))
+                        : _currencyList.OrderByDescending(n => ExtractNumber(n.rank));
+                    break;
+
+            }
+            if (sortedItems != null)
+            {
+                _topCurrencies.ItemsSource = sortedItems.Take(10);
+                e.Column.SortDirection = isAscending
+                    ? ListSortDirection.Descending
+                    : ListSortDirection.Ascending;
                 _topCurrencies.Items.Refresh();
             }
+            
 
         }
         static int ExtractNumber(string str)
@@ -147,6 +110,7 @@ namespace CryptoTop
             }
             return 0;
         }
+
         
     }
 

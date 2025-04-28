@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CryptoTop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TablePage">
+      Title="TablePage" Loaded="Page_Loaded">
 
     <Grid>
         <DataGrid Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
