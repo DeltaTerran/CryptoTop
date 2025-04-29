@@ -19,7 +19,7 @@
             <Label x:Name="PriceInfo" Canvas.Top="96" Canvas.Left="150" FontSize="22"></Label>
             <Label x:Name="VolumeInfo" Canvas.Top="128" Canvas.Left="150" FontSize="22"></Label>
             <Label x:Name="PriceChangeInfo" Canvas.Top="160" Canvas.Left="150" FontSize="22"></Label>
-            <Label x:Name="MarketInfo" Canvas.Top="192" Canvas.Left="150" Canvas.Right="1" FontSize="22" MouseDoubleClick="MarketInfo_MouseDoubleClick"></Label>
+            <Label x:Name="MarketInfo" Canvas.Top="192" Canvas.Left="150" Canvas.Right="1" FontSize="22" MouseDoubleClick="MarketInfo_MouseDoubleClick" Foreground="Blue" Cursor="Hand"></Label>
         </Canvas>
     </Grid>
 </Page>
