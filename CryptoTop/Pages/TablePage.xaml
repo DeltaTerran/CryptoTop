@@ -9,7 +9,7 @@
       Title="TablePage" Loaded="Page_Loaded">
 
     <Grid>
-        <DataGrid Name="_topCurrencies" GridLinesVisibility="None" AutoGenerateColumns="False" Margin="8,0,0,0" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
+        <DataGrid Name="_topCurrencies" GridLinesVisibility="None" Background="Snow" AutoGenerateColumns="False" Margin="8,0,0,0" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="BorderBrush" Value="Transparent"/>

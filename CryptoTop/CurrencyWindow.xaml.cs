@@ -32,19 +32,27 @@ namespace CryptoTop
             
         }
         
-        private void DataGetButton_Click(object sender, RoutedEventArgs e)
+        private async void DataGetButton_Click(object sender, RoutedEventArgs e)
         {
 
-
-            Requester.CreateJson();
-            MessageBox.Show("Файл был записан");
-            if (_mainFrame.Content is TablePage tablePage)
+            try
             {
-                var currencyList = tablePage.GetCurrencyList();
-                DataGrid topCurrencies = tablePage.GetDataGrid();
-                currencyList = JsonHandler.CreateList();
-                topCurrencies.ItemsSource = currencyList.Take(10);
+                await Requester.CreateJson();
+                MessageBox.Show("Json has been created");
+                if (_mainFrame.Content is TablePage tablePage)
+                {
+                    var currencyList = tablePage.GetCurrencyList();
+                    DataGrid topCurrencies = tablePage.GetDataGrid();
+                    currencyList = JsonHandler.CreateList();
+                    topCurrencies.ItemsSource = currencyList.Take(10);
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            
             
         }
 
@@ -53,6 +61,14 @@ namespace CryptoTop
             _mainFrame.Navigate(new APIPage());
             //Properties.Settings.Default.apiKey = "3e403e7454eb64e1faa6b5dbbd6b78531d9193c2c5391d879622c8d7a266fff3";
             //Properties.Settings.Default.Save();
+        }
+        public static void ReturnToTable<T>() where T : new()
+        {
+            var mainWindow = Application.Current.MainWindow as CurrencyWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.MainFrameInstance.Navigate(new T());
+            }
         }
     }
 }

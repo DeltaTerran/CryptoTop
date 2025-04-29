@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoTop.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,22 +29,16 @@ namespace CryptoTop
         {
             //Properties.Settings.Default.apiKey = "3e403e7454eb64e1faa6b5dbbd6b78531d9193c2c5391d879622c8d7a266fff3";
             Properties.Settings.Default.apiKey = ApiKeyTextBox.Text;
+            MessageBox.Show("Key has been changed to: " + ApiKeyTextBox.Text);
             Properties.Settings.Default.Save();
-            var mainWindow = Application.Current.MainWindow as CurrencyWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.MainFrameInstance.Navigate(new TablePage());
-            }
+            Requester.SetApiKey(ApiKeyTextBox.Text);
+            CurrencyWindow.ReturnToTable<TablePage>();
         }
 
         private void GoBackBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-            var mainWindow = Application.Current.MainWindow as CurrencyWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.MainFrameInstance.Navigate(new TablePage());
-            }
+
+            CurrencyWindow.ReturnToTable<TablePage>();
         }
     }
 }

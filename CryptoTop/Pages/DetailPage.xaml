@@ -10,15 +10,16 @@
 
     <Grid>
         <Canvas>
+            <Label x:Name="LName" Canvas.Top="48" FontSize="22" FontStyle="Italic"></Label>
             <Button Content="Back" Width="80" Click="Button_Click"></Button>
-            <Label x:Name="Price" Canvas.Top="32" FontSize="22">Price</Label>
-            <Label x:Name="Volume" Canvas.Top="64" FontSize="22">Volume</Label>
-            <Label x:Name="PriceChange" Canvas.Top="96" FontSize="22">PriceChange</Label>
-            <Label x:Name="Market" Canvas.Top="128" FontSize="22">Market</Label>
-            <Label x:Name="PriceInfo" Canvas.Top="32" Canvas.Left="150" FontSize="22"></Label>
-            <Label x:Name="VolumeInfo" Canvas.Top="64" Canvas.Left="150" FontSize="22"></Label>
-            <Label x:Name="PriceChangeInfo" Canvas.Top="96" Canvas.Left="150" FontSize="22"></Label>
-            <Label x:Name="MarketInfo" Canvas.Top="128" Canvas.Left="150" Canvas.Right="1" FontSize="22" MouseDoubleClick="MarketInfo_MouseDoubleClick"></Label>
+            <Label x:Name="Price" Canvas.Top="96" FontSize="22">Price</Label>
+            <Label x:Name="Volume" Canvas.Top="128" FontSize="22">Volume</Label>
+            <Label x:Name="PriceChange" Canvas.Top="160" FontSize="22">PriceChange</Label>
+            <Label x:Name="Market" Canvas.Top="192" FontSize="22">Market</Label>
+            <Label x:Name="PriceInfo" Canvas.Top="96" Canvas.Left="150" FontSize="22"></Label>
+            <Label x:Name="VolumeInfo" Canvas.Top="128" Canvas.Left="150" FontSize="22"></Label>
+            <Label x:Name="PriceChangeInfo" Canvas.Top="160" Canvas.Left="150" FontSize="22"></Label>
+            <Label x:Name="MarketInfo" Canvas.Top="192" Canvas.Left="150" Canvas.Right="1" FontSize="22" MouseDoubleClick="MarketInfo_MouseDoubleClick"></Label>
         </Canvas>
     </Grid>
 </Page>

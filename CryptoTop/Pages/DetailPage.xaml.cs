@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,27 +36,31 @@ namespace CryptoTop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = Application.Current.MainWindow as CurrencyWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.MainFrameInstance.Navigate(new TablePage());
-            }
+            CurrencyWindow.ReturnToTable<TablePage>();
         }
+
+        
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            PriceInfo.Content = DisplayedCurrency.priceUsd;
-            VolumeInfo.Content = DisplayedCurrency.volumeUsd24Hr;
-            PriceChangeInfo.Content = DisplayedCurrency.changePercent24Hr;
+            LName.Content = DisplayedCurrency.id;
+            PriceInfo.Content = Parser(DisplayedCurrency.priceUsd,"$");
+            VolumeInfo.Content = Parser(DisplayedCurrency.volumeUsd24Hr, "$");
+            PriceChangeInfo.Content = Parser(DisplayedCurrency.changePercent24Hr, "%");
             MarketInfo.Content = DisplayedCurrency.explorer;
+        }
+
+        private string Parser(string str, string symbol)
+        {
+           return Math.Round(double.Parse(str, CultureInfo.InvariantCulture), 2) + symbol;
         }
 
         private void MarketInfo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-                Process.Start(new ProcessStartInfo(DisplayedCurrency.explorer)
-                {
-                    UseShellExecute = true
-                });
+            Process.Start(new ProcessStartInfo(DisplayedCurrency.explorer)
+            {
+                UseShellExecute = true
+            });
         }
     }
 }

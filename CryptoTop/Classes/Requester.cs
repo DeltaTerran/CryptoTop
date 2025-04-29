@@ -12,21 +12,25 @@ namespace CryptoTop.Classes
     public static class Requester
     {
         static string ApiKey = Properties.Settings.Default.apiKey;
+        public static void SetApiKey(string str)
+        {
+            ApiKey = str;
+
+        }
         
         static HttpClient _client = new HttpClient()
         {
             BaseAddress = new Uri("https://rest.coincap.io/v3/")
         };
         
-        public static async void CreateJson()
+        public static async Task CreateJson()
         {
                 await RequestJSON();
         }
 
         private static async Task RequestJSON()
         {
-            try
-            {
+            
                 HttpResponseMessage response = await _client.GetAsync($"assets?apiKey={ApiKey}");
                 response.EnsureSuccessStatusCode();
 
@@ -37,12 +41,6 @@ namespace CryptoTop.Classes
                     byte[] buffer = Encoding.Default.GetBytes(responseBody);
                     await json.WriteAsync(buffer, 0, buffer.Length);
                 }
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show($"Ошибка при выполнении запроса: {e.Message}");
-            }
         }
     }
 }
