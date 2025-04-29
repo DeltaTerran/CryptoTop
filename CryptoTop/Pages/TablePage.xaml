@@ -9,10 +9,16 @@
       Title="TablePage" Loaded="Page_Loaded">
 
     <Grid>
-        <DataGrid Name="_topCurrencies" AutoGenerateColumns="False" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
+        <DataGrid Name="_topCurrencies" GridLinesVisibility="None" AutoGenerateColumns="False" Margin="8,0,0,0" SelectionChanged="_topCurrencies_SelectionChanged" IsReadOnly="True" Sorting="_topCurrencies_Sorting">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Rank" Binding="{Binding rank}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Id" Binding="{Binding id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="150"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

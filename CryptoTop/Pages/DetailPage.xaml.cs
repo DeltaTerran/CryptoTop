@@ -52,18 +52,10 @@ namespace CryptoTop
 
         private void MarketInfo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
                 Process.Start(new ProcessStartInfo(DisplayedCurrency.explorer)
                 {
                     UseShellExecute = true
                 });
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
         }
     }
 }

@@ -28,6 +28,7 @@ namespace CryptoTop
             InitializeComponent();
             _mainFrame.Navigate(new TablePage());
             JsonHandler.EnsureFileExists();
+
             
         }
         
@@ -49,7 +50,9 @@ namespace CryptoTop
 
         private void ChangeAPIButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainFrame.Navigate(new APIPage());
+            //Properties.Settings.Default.apiKey = "3e403e7454eb64e1faa6b5dbbd6b78531d9193c2c5391d879622c8d7a266fff3";
+            //Properties.Settings.Default.Save();
         }
     }
 }
